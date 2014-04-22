@@ -5,8 +5,14 @@
 \usepackage[francais]{babel}
 
 \begin{document}
+
 \section{Introduction}
-Je suis nul en intro donc je propose de te laisser faire cette partie. 
+Dans presque tous les systèmes d'exploitations actuels, il est possible d'executer plusieurs tâches simultanément; ou en alternant entre elles si rapidement qu'un humain a l'impression de simultanéité. Ce principe apporte un problème important : celui d'ordonner l'exécution de ces multiples tâches. Effectivement, comme dans la vie d'un humain, le processeur a certaines tâches plus longues et d'autres plus courtes à exécuter. Les tâches les plus longues ne doivent pas trop faire attendre les plus courtes mais doivent tout de même être accomplie à un certain moment. C'est la façon de gérer ces priorités qu'on appelle l'ordonancement.
+
+\newline
+\newline
+
+Les ordonnanceurs étant une partie importante d'un système d'exploitation, il en existe une grande variété selon les applications et le type de microprocesseur. Cet article visera à expliciter les principales différences entre ces ordonnaceurs et leurs applications spécifiques.
 
 
 \section{Ordonnancement}
@@ -37,7 +43,23 @@ En réalité, la longueur choisi pour un quantum varie entre 20-50 ms. Par exemp
 
 Cet algorithme s'utilise en donnant un niveau de priorité à chaque processus et en exécutant le processus qui a le plus haut niveau de priorité en premier. Sans aucun ajustement cet méthode causerait un problème de famine et seul les processus à priorité élevé se verraient attribuer du temps. Pour cette raison, le niveau de priorité d'un processus diminue avec le temps permetttant de laisser la place aux processus qui sont moins prioritaires.
 
+\newline
+\newline
+
+Sous Linux, il existe la commande \emph{nice} qui permet de modifier la priorité d'un processus. Selon l'ordonnanceur utilisé, cette priorité a un effet différent sur la façon dont sera traitée la tâche. Dans certains cas comme celui du \emph{Completely Fair Scheduler} l'augmentation de la priorité d'un processus lui accordera une plus longue période d'exécution. Cette façon de faire simplifie le procédé d'ordonnancement en évitant de maintenir et modifier constamment un "indice de priorité" comme certains autre ordonnanceurs font.
+
+
 \subsection{Temps réel}
+
+L'ordonnacement en temps réel des processus est un principe très pratique dans les cas où une faible \emph{latence} est nécessaire. Le domaine de l'enregistrement audio est particulièrement demandant à ce niveau et la latence est souvent un critère important pour l'utilisation d'un système dans un studio professionnel.
+\newline
+\newline
+Dans le cas de l'enregistrement audio, le principe de faible latence permet concrètement de diminuer le temps entre la capture du son par le micro et la sortie du son dans les enceintes, ce qui est critique lorsqu'on enregistre plusieurs musiciens au même moment séparés dans différents locaux. Effectivement des temps de latence de plus de 20 milisecondes (1 / 50 seconde) est audible par l'humain et peut devient très gênant dans un contexte comme celui là. Un noyau configuré en temps réel permet facilement de diminuer la latence jusqu'à aussi peu que 5 milisecondes, ce qui est parfaitement acceptable dans ce domaine tandis qu'on noyau n'ayant pas cette fonctionnalité activée ne pourra pas aller en dessous des 40 ou 50 milisecondes dans la majorité des cas. 
+\newline
+\newline
+ L'ordonnancement en temps réel présente certains avantages comme la faible latence mais également un inconvénient majeur : une utilisation accrue du processeur.
+ 
+
 
 \section{Conclusion}
 
@@ -48,4 +70,5 @@ Tanenbaum, Andrew. 2008. Systèmes d'exploitation. 3ème édition. France: Pears
 
 
 \end{document}
+
 
