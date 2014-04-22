@@ -54,11 +54,15 @@ Sous Linux, il existe la commande \emph{nice} qui permet de modifier la priorit�
 L'ordonnacement en temps réel des processus est un principe très pratique dans les cas où une faible \emph{latence} est nécessaire. Le domaine de l'enregistrement audio est particulièrement demandant à ce niveau et la latence est souvent un critère important pour l'utilisation d'un système dans un studio professionnel.
 \newline
 \newline
-Dans le cas de l'enregistrement audio, le principe de faible latence permet concrètement de diminuer le temps entre la capture du son par le micro et la sortie du son dans les enceintes, ce qui est critique lorsqu'on enregistre plusieurs musiciens au même moment séparés dans différents locaux. Effectivement des temps de latence de plus de 20 milisecondes (1 / 50 seconde) est audible par l'humain et peut devient très gênant dans un contexte comme celui là. Un noyau configuré en temps réel permet facilement de diminuer la latence jusqu'à aussi peu que 5 milisecondes, ce qui est parfaitement acceptable dans ce domaine tandis qu'on noyau n'ayant pas cette fonctionnalité activée ne pourra pas aller en dessous des 40 ou 50 milisecondes dans la majorité des cas. 
+Dans le cas de l'enregistrement audio, le principe de faible latence permet concrètement de diminuer le temps entre la capture du son par le micro et la sortie du son dans les enceintes, ce qui est critique lorsqu'on enregistre plusieurs musiciens au même moment séparés dans différents locaux. Effectivement des temps de latence de plus de 20 milisecondes (1 / 50 seconde) est audible par l'humain et peut devient très gênant dans un contexte comme celui là. Un noyau configuré en temps réel permet facilement de diminuer la latence jusqu'à aussi peu que 5 milisecondes, ce qui est parfaitement acceptable dans ce domaine tandis qu'on noyau n'ayant pas cette fonctionnalité activée ne pourra pas aller en dessous des 40 ou 50 milisecondes dans la majorité des cas.
 \newline
 \newline
- L'ordonnancement en temps réel présente certains avantages comme la faible latence mais également un inconvénient majeur : une utilisation accrue du processeur.
+Au niveau de l'ordonnaceur, une façon de faire du \emph{realtime scheduling} est d'interdire l'interruption d'un processus possédant la priorité temps réel. Cette priorité est nomée \emph{SCHED_FIFO} dans les ordonnanceurs Linux. Une tâche possédant la priorité SCHED_FIFO devient donc non préemptive. Il existe cette autre façon de faire qui est de permettre la préemptivité de ce processus de manière limitée, c'est à dire que le processus peut être interrompu mais seulement après un temps donné (quantum).
+\newline
+\newline
+L'ordonnancement en temps réel présente certains avantages comme la faible latence mais également un inconvénient majeur : une utilisation accrue du processeur. Sur un ordinateur de puissance moyenne (Core 2 Duo 2.66Ghz en date de 2014) la diminution de la latence du serveur de son JACK jusqu'à 5 milisecondes entrainait une utilisation du processus de 50 à 80\% ce qui est évidemment innacceptable.
  
+
 
 
 \section{Conclusion}
